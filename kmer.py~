@@ -1,0 +1,25 @@
+#Given: A permutation of at most 12 symbols defining an ordered alphabet A and a positive integer n (n<=4).
+
+#Return: All strings of length at most n formed from A, ordered lexicographically. (Note: As in “Enumerating k-mers Lexicographically”, alphabet order is based on the order in which the symbols are given.)
+
+import sys
+
+
+
+
+
+
+
+bases = ['','A', 'C', 'G', 'T']
+
+L = ['']
+
+for i in [0,1,2,3]:
+    temp = []
+    for w in L:
+	for a in bases:
+	    temp.append(w+a)
+    L = temp
+    
+for w in L:
+    print w

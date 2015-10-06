@@ -1,0 +1,128 @@
+#Given: An integer n, followed by n protein strings, followed by a multiset of positive numbers (corresponding to the complete spectrum of some unknown protein string).
+
+#Return: the maximum multiplicity of R - S[s_k], where S[s_k] is spectrum of s_k, k is kth string.
+#	max is over both k and argument of R - S[s_k]
+
+import sys
+import scipy.misc
+import numpy as np
+
+
+def make_dict(s):
+    try:
+        input_file = open(s, "r")
+        #print "input file is", input_file.name
+    except IOError:
+        print "Oh no, we couldn't open our file!"
+
+    dict = {}
+    for line in input_file:
+	temp = line.split()
+	dict.update(  {temp[0]:float(temp[1])}  )
+	
+    return dict	
+
+def mass(prot):
+	total = 0
+	for a in prot:
+   		total += mass_dict[a]
+	return total
+
+def make_spectrum(prot): # inputs a protein, outputs its complete spectrum
+	ans = []
+	for j in range(0, len(prot)):
+		ans.append(mass(prot[:j]))
+		ans.append(mass(prot[j:]))
+	return ans	
+	
+def convolve(A,B): # input is two lists, output is max of A convolved with B (subtraction)
+	#print A
+	#print B
+	ans = 0
+	conv_dict = {}
+	for a in A:
+		for b in B:
+			found = 0
+			for x in conv_dict:
+				if abs(a-b-x) < .01:
+					conv_dict[x] +=1
+					found = 1
+					break
+				else:
+					pass
+			if found == 0:
+				conv_dict.update({a-b:1})
+			else:
+				pass
+	
+	return conv_dict
+	
+	
+mass_dict = make_dict('mass_file.txt')
+
+filename = 'rosalind_prsm.txt'
+
+prot_dict = {} 
+
+mass_list = [] # L is the list of partial protein masses
+
+with open(filename, 'r') as input_file:
+	n = input_file.readline()
+	n = n.strip()
+	n = int(n)
+	for i in range(0, n):
+		temp = input_file.readline()
+		temp = temp.strip()
+		#print temp
+		prot_dict.update({temp:make_spectrum(temp)})
+		
+	for line in input_file:
+		temp = float(line.strip())
+		mass_list.append(temp)
+		
+
+max_mult = 0
+max_prot = ''
+for prot in prot_dict:
+	#print prot_dict[prot]
+	#print mass_list
+	#print 'aaaaaaaaaaaa'
+	conv_dict = convolve(prot_dict[prot], mass_list)
+	print max(conv_dict.values()), prot
+	if max(conv_dict.values()) > max_mult:
+		max_mult = max(conv_dict.values())
+		max_prot = prot
+	else:
+		pass
+	
+print max_mult
+print max_prot
+	
+
+
+#L = np.sort(L)
+#diff = [0] * ( len(L) - 1)
+#prot = ''
+#for i in range(0, len(L)-1):
+	#diff[i] = L[i+1] - L[i]
+	#for x in mass_dict:
+		#if abs(mass_dict[x] - diff[i]) < .01:
+			#prot+=x
+			#break
+
+#print prot
+
+# Some extra code below to determine the possible differences in masses for an amino acid
+# it appears that .01 is appropriate to discriminate amino acids of different masses.
+# if the masses are different, then they are different by > .03
+
+#differences = []
+
+#for x in mass_dict:
+	#for y in mass_dict:
+		#if y != x: differences.append(abs(mass_dict[x] - mass_dict[y]))
+		
+		
+#differences =  np.sort(differences)
+#for i in range(0, len(differences)):
+	#print differences[i]

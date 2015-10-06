@@ -1,0 +1,30 @@
+#Given: A positive integer n less than or equal to 7.
+
+#Return: The total number of permutations of length n, followed by a list of all such permutations (in any order).
+
+import sys
+import scipy.misc
+
+s = sys.argv[1]
+n = int(sys.argv[2])
+
+my_symbols = s.split()
+
+L = ['']
+
+for j in range(0, n):
+    temp = []
+    for w in L:
+	for a in my_symbols:
+	    temp.append(w+a)
+    L = temp
+
+
+#print 'n factorial is ', len(L)
+#print 
+#print
+#print
+
+
+for w in L:
+    print w

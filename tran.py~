@@ -1,0 +1,54 @@
+#Given: Two DNA strings s1 and s2 of equal length (at most 1 kbp).
+
+#Return: The transition/transversion ratio R(s1,s2).
+
+
+import numpy as np
+
+
+
+
+
+
+s = 'rosalind_sseq.txt'
+
+try:
+    input_file = open(s, "r")
+    print "input file is", input_file.name
+except IOError:
+    print "Oh no, we couldn't open our file!"
+
+sample_dict = {}
+temp = ''
+sample = ''
+
+num = 0
+
+for line in input_file:
+    if '>' in line:
+	num +=1
+	
+	temp = line.rstrip()
+	sample = temp.lstrip('>')
+	#print 'SAMPLE:  ', temp2
+	my_dna = ''
+    else:
+	my_dna = my_dna + line.strip()
+	sample_dict.update({ num: my_dna })
+	
+
+s = sample_dict[1]
+t = sample_dict[2]
+
+transition = 0
+transversion = 0
+
+for j in range(0, len(s)):
+    if s[j] == t[j]:
+	pass
+    elif s[j] + t[j] in ['AG', 'GA', 'CT', 'TC']:
+        transition +=1
+    else:
+	transversion +=1
+	
+print float(transition) / float(transversion)

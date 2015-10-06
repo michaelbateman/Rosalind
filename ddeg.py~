@@ -1,0 +1,43 @@
+
+
+import numpy as np
+
+s = 'rosalind_ddeg.txt'
+
+neigh = {}
+
+
+def friends(neigh, L):
+	T = []
+	for x in L:
+		T.update(neigh[x])
+	return T
+
+def sphere(neigh, r): #sphere centered at first vertex (index 0) of radius r
+	temp = friends(neigh, [0])
+	for j in range(1, r+1):
+		new_temp = friends(neigh, temp)
+		temp = new_temp
+	return temp
+	
+
+def BFS(i, neigh):
+	for r in range(1, n):
+		if i in sphere(neigh, r):
+			return r
+	return -1
+		
+		
+
+
+with open(s, 'r') as input_file:
+	n,m = [int(x) for x in input_file.readline().split()]
+		for i in range(0, n):
+		neigh.update({i:[]})
+	for line in input_file:
+		a,b = [int(x) for x in line.split()]
+		neigh[a-1].append(b-1)
+
+print 0,
+for i in range(1, n):
+	print BFS(i, neigh), 

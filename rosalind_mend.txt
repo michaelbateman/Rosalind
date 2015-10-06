@@ -1,0 +1,1 @@
+((((((AA,aa),Aa),aa),(((Aa,aa),(AA,Aa)),((AA,aa),AA))),((((AA,Aa),(Aa,aa)),((AA,Aa),Aa)),AA)),(((((AA,aa),AA),((AA,AA),(aa,Aa))),aa),((((AA,Aa),Aa),AA),AA)));

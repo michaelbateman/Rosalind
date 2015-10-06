@@ -1,0 +1,15 @@
+import sys
+N = int(sys.argv[1])
+gc = float(sys.argv[2])
+s = sys.argv[3]
+
+
+
+def prob(s, gc):
+    p = float(gc) / 2.0
+    q = float(1-gc) / 2.0
+    return p ** s.count('G') * p ** s.count('C') * q ** s.count('A') * q ** s.count('T')
+
+x = prob(s, gc)
+
+print 1 - (1-x)**N

@@ -1,2 +1,3 @@
 # Rosalind
-code to solve problems at bioinformatics training website Rosalind
+
+This repo contains my code for the bioinformatics website Rosalind.

@@ -1,0 +1,56 @@
+ # Given: positive integer n, string s, array A
+
+#Return: array B, where B[i] is expected number of times s will appear in a string of length n assumed to have gc content A[i]
+
+
+
+
+
+filename = 'rosalind_eval.txt'
+
+#try:
+    #input_file = open(, "r")
+    #print "input file is", input_file.name
+#except IOError:
+    #print "Oh no, we couldn't open our file!"
+
+
+
+
+def prob(s, gc):
+    p = float(gc) / 2.0
+    q = float(1-gc) / 2.0
+    return p ** s.count('G') * p ** s.count('C') * q ** s.count('A') * q ** s.count('T')
+
+
+
+with open(filename, 'r') as input_file:
+	n = input_file.readline()
+	n = n.strip()
+	n = int(n)
+	
+	s = input_file.readline()
+	s = s.strip()
+	
+	A = [float(x) for x in input_file.readline().split()]
+	
+print n
+print s
+print A
+
+B = [0] * len(A)
+for i in range(0, len(A)):
+	print prob(s, A[i])
+	B[i] = prob(s, A[i]) * (n - len(s) + 1)
+	print B[i],
+    
+    
+	
+
+
+
+
+
+
+
+

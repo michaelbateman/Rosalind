@@ -1,0 +1,9 @@
+import sys
+
+n = int(sys.argv[1])
+
+prod = 1
+for i in range(0, n):
+	prod*=2
+	
+print prod

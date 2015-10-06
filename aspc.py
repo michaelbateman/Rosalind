@@ -1,0 +1,114 @@
+
+#Given: Positive integers n and m 
+#Return: sum of n choose k for k from m to n inclusive
+
+
+import sys
+import numpy as np
+import scipy.misc
+
+
+n = int(sys.argv[1])
+m = int(sys.argv[2])
+
+#def fact(n):# returns n! mod 1 million
+	#prod = 1
+	#for i in range(1, n+1):
+		#temp = prod * i
+		#prod = temp % 1000000
+		
+	#return prod
+	
+#def combo(n,k): # returns n choose k mod 1 million
+	#prod = 1
+	#for i in range(0, k):
+		#prod = prod * float(n - i) / float(k - i)
+		#prod = prod % 1000000
+		##print prod, n, i
+	##print
+	##print prod
+	##print
+	#return prod
+	
+#total = 0
+
+#for k in range(m, n+1):
+	
+	
+	#total += combo(n,k)
+	#total = total % 1000000
+	
+
+#print total
+
+#new_total = 0
+#base = combo(n,m)
+#prod = 1
+
+#ans = 0
+
+#for k in range(m, n+1):
+	#if k == m: r = 1
+	#elif k < n : r = float(n-k + 1) / float(k )
+	#else: r = float(1) / float(n)
+	##print 'r = ', r
+	#print base * r
+	#base = base * r
+	##base = round(base * r)
+	#ans = ans + base
+	#ans = ans % 1000000
+	
+
+	
+#ans = 0
+
+#L = [0] * (n+1)
+#test = [0] *(n+1)
+#temp = 1
+#L[0] = 1
+#for k in range(1, (n+1) / 2 + 1):
+	#L[k] = L[k-1] * float(n-k + 1) / float(k )
+	#L[k] = round(L[k])
+	#L[k] = L[k] % 1000000
+	#test[k] = scipy.misc.comb(n,k)
+	#test[k] = test[k] % 1000000
+	
+	
+#for k in range(0,n+1):# (n+1) / 2 +1):
+	#L[n - k] = L[k]
+	#test[n-k] = test[k]
+#total = 0
+#total2 = 0
+#for k in range(m, n+1):
+	#total += L[k]
+	#total2 += test[k]
+#print total % 1000000
+##print total2 % 1000000
+#print L
+##print (n+1) / 2
+
+L = [1,1]
+for j in range(2, n+1):
+	new = [0]*(j+1)
+	for k in range(0, j+1):
+		if k == 0 or k == j:
+			new[k] = 1
+		else:
+			new[k] = ( L[k] + L[k-1] ) % 1000000
+		
+	L = new
+
+total = 0
+for k in range(m, n+1):
+	total += L[k]
+print total % 1000000	
+###########################
+
+# there is a problem with multiplying by r when r < 1 since division and modulo do not play well together
+# perhaps should do a sum from m to n/2 then a reverse sum from n to n/2
+
+###########################
+
+
+
+
